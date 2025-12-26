@@ -66,4 +66,46 @@ fn main() {
 
     let (x, y, z) = tup2;
     println!("The value of x, y, z are: {}, {}, {}", x, y, z);
+
+    let a = [1, 2, 3, 4, 5];
+    let first = a[0];
+
+    println!("The first element of the array is: {}", first);
+
+    let months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+    println!("The months of the year are: {:?}", months);
+
+    let a: [i32; 5] = [3; 5];
+    println!("The array a is: {:?}", a);
+
+    println!("The length of the array a is: {}", a.len());
+
+    let a: [i32; 5] = [1, 2, 3, 4, 5];
+    println!("The array a is: {:?}", a);
+
+    println!("Please enter an array index.");
+
+    let mut index = String::new();
+
+    std::io::stdin()
+        .read_line(&mut index)
+        .expect("Failed to read line");
+
+    let index: usize = index.trim().parse().expect("Please enter a valid number");
+
+    let element = a[index];
+    println!("The element at index {} is: {}", index, element);
 }
