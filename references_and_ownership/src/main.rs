@@ -13,7 +13,7 @@ fn main() {
     println!("{} and {}", r1, r2);
 
     let r3 = &mut s1; // no problem
-                      // let r4 = &mut s1; // BIG PROBLEM - cannot borrow `s1` as mutable more than once at a time
+    // let r4 = &mut s1; // BIG PROBLEM - cannot borrow `s1` as mutable more than once at a time
     println!("{}", r3);
 
     {
@@ -25,8 +25,8 @@ fn main() {
     println!("{}", r5);
 
     let r6 = &s1; // no problem
-                  // let r7 = &mut s1; // BIG PROBLEM - cannot borrow `s1` as mutable because it is also borrowed as immutable
-                  // println!("{}, {}", r6, r7);
+    // let r7 = &mut s1; // BIG PROBLEM - cannot borrow `s1` as mutable because it is also borrowed as immutable
+    // println!("{}, {}", r6, r7);
 
     let r8 = &s1; // no problem
     let r9 = &s1; // no problem
