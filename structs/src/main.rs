@@ -49,6 +49,14 @@ struct User {
     active: bool,
 }
 
+// this will not compile because the fields are &str, which require a lifetime
+// struct User {
+//     username: &str,
+//     email: &str,
+//     sign_in_count: u64,
+//     active: bool,
+// }
+
 fn build_user(email: String, username: String, sign_in_count: u64, active: Option<bool>) -> User {
     User {
         email,
