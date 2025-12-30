@@ -35,7 +35,7 @@ fn main() {
 
     // using enum with multiple associated data types
     let home = IpAddressWithParts::V4(127, 0, 0, 1);
-    let loopback = IpAddressWithParts::V6(String::from("::1"));
+    let loopback = IpAddressWithParts::V6(());
 
     // matching enum with multiple associated data types
     let message1 = Message::Quit;
@@ -46,6 +46,31 @@ fn main() {
     message2.call();
     message3.call();
     message4.call();
+
+    // using structs instead of enum
+    let quit_msg = QuitMessage;
+    let move_msg = MoveMessage { x: 10, y: 20 };
+    let write_msg = WriteMessage(String::from("Hello from struct!"));
+    let color_msg = ChangeColorMessage(255, 0, 0);
+    quit_msg.call();
+    move_msg.call();
+    write_msg.call();
+    color_msg.call();
+
+    // give generic enum Option a try with a value and without a value
+    let some_number = Option::Some(5);
+    let some_string = Option::Some("a string");
+    // without a value
+    let absent_number: Option<i32> = Option::None;
+
+    let x: i32 = 5;
+    let y: Option<i32> = Option::Some(5);
+    // adding x and y requires handling the Option enum
+    let sum = x + match y {
+        Option::Some(value) => value,
+        Option::None => 0,
+    };
+    println!("The sum of x and y is: {}", sum);
 }
 
 // custom datatype with enum
@@ -98,7 +123,7 @@ fn route(ip: IpAddress) {
 // enum with multiple associated data types
 enum IpAddressWithParts {
     V4(u8, u8, u8, u8),
-    V6(String),
+    V6(()),
 }
 
 // this enum holding four variants in different types
@@ -130,4 +155,38 @@ impl Message {
             }
         }
     }
+}
+
+impl QuitMessage {
+    fn call(&self) {
+        println!("Quit message");
+    }
+}
+
+impl MoveMessage {
+    fn call(&self) {
+        println!("Move message to x: {}, y: {}", self.x, self.y);
+    }
+}
+
+impl WriteMessage {
+    fn call(&self) {
+        println!("Write message: {}", self.0);
+    }
+}
+
+impl ChangeColorMessage {
+    fn call(&self) {
+        println!(
+            "Change color to red: {}, green: {}, blue: {}",
+            self.0, self.1, self.2
+        );
+    }
+}
+
+// defining generic enum option
+// rust do not have null values but we can use Option enum to represent a value that can be either something or nothing
+enum Option<T> {
+    Some(T),
+    None,
 }
