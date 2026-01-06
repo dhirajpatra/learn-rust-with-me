@@ -1,6 +1,7 @@
 use core::panic;
 use std::fs::File;
 use std::io::ErrorKind;
+use std::io::{self, Read};
 
 fn main() {
     // panic!("This is a panic in abort mode");
@@ -20,4 +21,24 @@ fn main() {
         },
     };
     print!("{:?}", greeting_file);
+
+    // Using the read_username_from_file function
+    let username_result = read_username_from_file();
+    // Handle the Result using match
+    match username_result {
+        Ok(username) => println!("Username: {}", username),
+        Err(e) => println!("Error reading username: {:?}", e),
+    }
+}
+
+// this function returns a Result type
+fn read_username_from_file() -> Result<String, io::Error> {
+    // the ? operator can be used to propagate errors
+    let mut f = File::open("hello.txt")?;
+    // create a new empty String
+    let mut s = String::new();
+    // read the file contents into the String
+    f.read_to_string(&mut s)?;
+    // return the String wrapped in an Ok variant
+    Ok(s)
 }
