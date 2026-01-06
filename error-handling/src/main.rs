@@ -2,6 +2,7 @@ use core::panic;
 use std::fs::File;
 use std::io::ErrorKind;
 use std::io::{self, Read};
+use std::net::IpAddr;
 
 fn main() {
     // panic!("This is a panic in abort mode");
@@ -29,6 +30,12 @@ fn main() {
         Ok(username) => println!("Username: {}", username),
         Err(e) => println!("Error reading username: {:?}", e),
     }
+
+    // Using the expect method to handle errors
+    let home: IpAddr = "127.0.0.1"
+        .parse()
+        .expect("Hardcoded IP address should be valid");
+    println!("Home IP Address: {}", home);
 }
 
 // this function returns a Result type
