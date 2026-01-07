@@ -22,6 +22,11 @@ impl Summary for NewsArticle {
     fn summarize(&self) -> String {
         format!("{}, by {} ({})", self.headline, self.author, self.location)
     }
+
+    // Provide the implementation for the `summarize_author` method
+    fn summarize_author(&self) -> String {
+        format!("{}", &self.author)
+    }
 }
 
 // Define a struct named `SocialPost` with relevant fields
@@ -54,4 +59,3 @@ pub fn notify(item: &impl Summary) {
 pub fn notify_generic<T: Summary>(item: &T) {
     println!("Breaking news! {}", item.summarize());
 }
-
